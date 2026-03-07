@@ -12,7 +12,10 @@ from mcp.server.fastmcp import FastMCP
 load_dotenv()
 
 # Initialize MCP Server
-mcp = FastMCP("NexusLink AI")
+mcp = FastMCP(
+    "NexusLink AI",
+    description="AI-Powered LinkedIn Intelligence — profile analysis, content generation, job matching, and network automation.",
+)
 
 # Import tool modules
 from tools.profile import register_profile_tools
