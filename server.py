@@ -33,4 +33,4 @@ logger = logging.getLogger("nexuslink")
 
 if __name__ == "__main__":
     logger.info("🚀 NexusLink AI MCP Server starting...")
-    mcp.run(transport="sse")
+    mcp.run(transport="sse", host="0.0.0.0", port=10000)
