@@ -6,10 +6,8 @@ A remote MCP connector for Claude that integrates with LinkedIn's API.
 import os
 import json
 import logging
-from dotenv import load_dotenv
+import uvicorn
 from mcp.server.fastmcp import FastMCP
-
-load_dotenv()
 
 # Initialize MCP Server
 mcp = FastMCP("NexusLink AI")
@@ -31,6 +29,18 @@ register_branding_tools(mcp)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("nexuslink")
 
+app = mcp.sse_app()
+
 if __name__ == "__main__":
-    logger.info("🚀 NexusLink AI MCP Server starting...")
-    mcp.run(transport="sse", host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 8000))
+    logger.info(f"🚀 NexusLink AI MCP Server starting on 0.0.0.0:{port}...")
+    uvicorn.run(app, host="0.0.0.0", port=port)
+```
+
+Also add `uvicorn` to the requirements. Go to **requirements.txt** → edit, and replace with:
+```
+mcp[cli]>=1.0.0
+python-dotenv>=1.0.0
+httpx>=0.25.0
+uvicorn>=0.30.0
+starlette
